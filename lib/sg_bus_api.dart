@@ -7,7 +7,7 @@ import 'package:sg_bus_api/src/bus_model.dart';
 
 class SGBusAPI{
   //INPUT: Bus Stop 
-  //returns a Future With a List of Services that the BUS Stop operates with
+  //returns a Future With a List of Services that the Bus Stop has
  static Future<List<Services>> getBusStopInformation(String busStopID) async {
 
    Dio dio = Dio();

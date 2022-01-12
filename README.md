@@ -21,18 +21,20 @@ This package allows for a seamless integration of the current Singapore BUS API 
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Just import the package as 
+
+```dart
+import "package:sg_bus_api/src/bus_model.dart"
+
+```
+
+
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Examples to be added soon
 
 ```dart
 const like = 'sample';
 ```
 
-## Additional information
-
-TODO: Additional information
