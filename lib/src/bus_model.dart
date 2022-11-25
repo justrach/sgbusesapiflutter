@@ -1,258 +1,282 @@
-
 import 'dart:convert';
+
 T? asT<T>(dynamic value) {
   if (value is T) {
     return value;
   }
   return null;
 }
- 
 
 class BusVroom {
+  BusVroom({
+    this.data,
+  });
 
-    BusVroom({
-this.busStopCode,
-this.odatametadata,
-this.services,
-    });
+  factory BusVroom.fromJson(Map<String, dynamic> json) => BusVroom(
+        data: json['data'] == null
+            ? null
+            : Data.fromJson(asT<Map<String, dynamic>>(json['data'])!),
+      );
 
-  factory BusVroom.fromJson(Map<String, dynamic> jsonRes){
+  Data? data;
 
-
- final  List<Services>? services = jsonRes['Services'] is List ? <Services>[]: null; 
-    if(services!=null) {
- for (final dynamic item in jsonRes['Services']!) { if (item != null) { services.add(Services.fromJson(asT<Map<String,dynamic>>(item)!));  }}
-    }
-return BusVroom(
-    busStopCode : asT<String?>(jsonRes['BusStopCode']),
-    odatametadata : asT<String?>(jsonRes['odata.metadata']),
- services:services,);}
-
-  final String? busStopCode;
-  final String? odatametadata;
-  final List<Services>? services;
-  
-@override
-String  toString() {
+  @override
+  String toString() {
     return jsonEncode(this);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'BusStopCode': busStopCode,
-        'odata.metadata': odatametadata,
-        'Services': services,
-};
+        'data': data,
+      };
+}
 
-BusVroom clone() => BusVroom.fromJson(asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
+class Data {
+  Data({
+    this.services,
+  });
 
+  factory Data.fromJson(Map<String, dynamic> json) {
+    final List<Services>? services =
+        json['services'] is List ? <Services>[] : null;
+    if (services != null) {
+      for (final dynamic item in json['services']!) {
+        if (item != null) {
+          services.add(Services.fromJson(asT<Map<String, dynamic>>(item)!));
+        }
+      }
+    }
+    return Data(
+      services: services,
+    );
+  }
+
+  List<Services>? services;
+
+  @override
+  String toString() {
+    return jsonEncode(this);
+  }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'services': services,
+      };
 }
 
 class Services {
+  Services({
+    this.no,
+    this.operator1669391226589797,
+    this.next,
+    this.subsequent,
+    this.next2,
+    this.next3,
+  });
 
-    Services({
-this.nextBus,
-this.nextBus2,
-this.nextBus3,
-this.operator,
-this.serviceNo,
-    });
+  factory Services.fromJson(Map<String, dynamic> json) => Services(
+        no: asT<String?>(json['no']),
+        operator1669391226589797: asT<String?>(json['operator']),
+        next: json['next'] == null
+            ? null
+            : Next.fromJson(asT<Map<String, dynamic>>(json['next'])!),
+        subsequent: json['subsequent'] == null
+            ? null
+            : Subsequent.fromJson(
+                asT<Map<String, dynamic>>(json['subsequent'])!),
+        next2: json['next2'] == null
+            ? null
+            : Next2.fromJson(asT<Map<String, dynamic>>(json['next2'])!),
+        next3: asT<Object?>(json['next3']),
+      );
 
-  factory Services.fromJson(Map<String, dynamic> jsonRes)=>Services(
-    nextBus :jsonRes['NextBus']==null?null: NextBus.fromJson(asT<Map<String, dynamic>>(jsonRes['NextBus'])!),
-    nextBus2 :jsonRes['NextBus2']==null?null: NextBus2.fromJson(asT<Map<String, dynamic>>(jsonRes['NextBus2'])!),
-    nextBus3 :jsonRes['NextBus3']==null?null: NextBus3.fromJson(asT<Map<String, dynamic>>(jsonRes['NextBus3'])!),
-    operator : asT<String?>(jsonRes['Operator']),
-    serviceNo : asT<String?>(jsonRes['ServiceNo']),);
+  String? no;
+  String? operator1669391226589797;
+  Next? next;
+  Subsequent? subsequent;
+  Next2? next2;
+  Object? next3;
 
-  final NextBus? nextBus;
-  final NextBus2? nextBus2;
-  final NextBus3? nextBus3;
-  final String? operator;
-  final String? serviceNo;
-  
-@override
-String  toString() {
+  @override
+  String toString() {
     return jsonEncode(this);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'NextBus': nextBus,
-        'NextBus2': nextBus2,
-        'NextBus3': nextBus3,
-        'Operator': operator,
-        'ServiceNo': serviceNo,
-};
-
-Services clone() => Services.fromJson(asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
-
+        'no': no,
+        'operator': operator1669391226589797,
+        'next': next,
+        'subsequent': subsequent,
+        'next2': next2,
+        'next3': next3,
+      };
 }
 
-class NextBus {
+class Next {
+  Next({
+    this.time,
+    this.durationMs,
+    this.lat,
+    this.lng,
+    this.load,
+    this.feature,
+    this.type,
+    this.visitNumber,
+    this.originCode,
+    this.destinationCode,
+  });
 
-    NextBus({
-this.destinationCode,
-this.estimatedArrival,
-this.feature,
-this.latitude,
-this.load,
-this.longitude,
-this.originCode,
-this.type,
-this.visitNumber,
-    });
+  factory Next.fromJson(Map<String, dynamic> json) => Next(
+        time: asT<String?>(json['time']),
+        durationMs: asT<int?>(json['duration_ms']),
+        lat: asT<double?>(json['lat']),
+        lng: asT<double?>(json['lng']),
+        load: asT<String?>(json['load']),
+        feature: asT<String?>(json['feature']),
+        type: asT<String?>(json['type']),
+        visitNumber: asT<int?>(json['visit_number']),
+        originCode: asT<String?>(json['origin_code']),
+        destinationCode: asT<String?>(json['destination_code']),
+      );
 
-  factory NextBus.fromJson(Map<String, dynamic> jsonRes)=>NextBus(
-    destinationCode : asT<String?>(jsonRes['DestinationCode']),
-    estimatedArrival : asT<String?>(jsonRes['EstimatedArrival']),
-    feature : asT<String?>(jsonRes['Feature']),
-    latitude : asT<String?>(jsonRes['Latitude']),
-    load : asT<String?>(jsonRes['Load']),
-    longitude : asT<String?>(jsonRes['Longitude']),
-    originCode : asT<String?>(jsonRes['OriginCode']),
-    type : asT<String?>(jsonRes['Type']),
-    visitNumber : asT<String?>(jsonRes['VisitNumber']),);
+  String? time;
+  int? durationMs;
+  double? lat;
+  double? lng;
+  String? load;
+  String? feature;
+  String? type;
+  int? visitNumber;
+  String? originCode;
+  String? destinationCode;
 
-  final String? destinationCode;
-  final String? estimatedArrival;
-  final String? feature;
-  final String? latitude;
-  final String? load;
-  final String? longitude;
-  final String? originCode;
-  final String? type;
-  final String? visitNumber;
-  
-@override
-String  toString() {
+  @override
+  String toString() {
     return jsonEncode(this);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'DestinationCode': destinationCode,
-        'EstimatedArrival': estimatedArrival,
-        'Feature': feature,
-        'Latitude': latitude,
-        'Load': load,
-        'Longitude': longitude,
-        'OriginCode': originCode,
-        'Type': type,
-        'VisitNumber': visitNumber,
-};
-
-NextBus clone() => NextBus.fromJson(asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
-
+        'time': time,
+        'duration_ms': durationMs,
+        'lat': lat,
+        'lng': lng,
+        'load': load,
+        'feature': feature,
+        'type': type,
+        'visit_number': visitNumber,
+        'origin_code': originCode,
+        'destination_code': destinationCode,
+      };
 }
 
-class NextBus2 {
+class Subsequent {
+  Subsequent({
+    this.time,
+    this.durationMs,
+    this.lat,
+    this.lng,
+    this.load,
+    this.feature,
+    this.type,
+    this.visitNumber,
+    this.originCode,
+    this.destinationCode,
+  });
 
-    NextBus2({
-this.destinationCode,
-this.estimatedArrival,
-this.feature,
-this.latitude,
-this.load,
-this.longitude,
-this.originCode,
-this.type,
-this.visitNumber,
-    });
+  factory Subsequent.fromJson(Map<String, dynamic> json) => Subsequent(
+        time: asT<String?>(json['time']),
+        durationMs: asT<int?>(json['duration_ms']),
+        lat: asT<int?>(json['lat']),
+        lng: asT<int?>(json['lng']),
+        load: asT<String?>(json['load']),
+        feature: asT<String?>(json['feature']),
+        type: asT<String?>(json['type']),
+        visitNumber: asT<int?>(json['visit_number']),
+        originCode: asT<String?>(json['origin_code']),
+        destinationCode: asT<String?>(json['destination_code']),
+      );
 
-  factory NextBus2.fromJson(Map<String, dynamic> jsonRes)=>NextBus2(
-    destinationCode : asT<String?>(jsonRes['DestinationCode']),
-    estimatedArrival : asT<String?>(jsonRes['EstimatedArrival']),
-    feature : asT<String?>(jsonRes['Feature']),
-    latitude : asT<String?>(jsonRes['Latitude']),
-    load : asT<String?>(jsonRes['Load']),
-    longitude : asT<String?>(jsonRes['Longitude']),
-    originCode : asT<String?>(jsonRes['OriginCode']),
-    type : asT<String?>(jsonRes['Type']),
-    visitNumber : asT<String?>(jsonRes['VisitNumber']),);
+  String? time;
+  int? durationMs;
+  int? lat;
+  int? lng;
+  String? load;
+  String? feature;
+  String? type;
+  int? visitNumber;
+  String? originCode;
+  String? destinationCode;
 
-  final String? destinationCode;
-  final String? estimatedArrival;
-  final String? feature;
-  final String? latitude;
-  final String? load;
-  final String? longitude;
-  final String? originCode;
-  final String? type;
-  final String? visitNumber;
-  
-@override
-String  toString() {
+  @override
+  String toString() {
     return jsonEncode(this);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'DestinationCode': destinationCode,
-        'EstimatedArrival': estimatedArrival,
-        'Feature': feature,
-        'Latitude': latitude,
-        'Load': load,
-        'Longitude': longitude,
-        'OriginCode': originCode,
-        'Type': type,
-        'VisitNumber': visitNumber,
-};
-
-NextBus2 clone() => NextBus2.fromJson(asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
-
+        'time': time,
+        'duration_ms': durationMs,
+        'lat': lat,
+        'lng': lng,
+        'load': load,
+        'feature': feature,
+        'type': type,
+        'visit_number': visitNumber,
+        'origin_code': originCode,
+        'destination_code': destinationCode,
+      };
 }
 
-class NextBus3 {
+class Next2 {
+  Next2({
+    this.time,
+    this.durationMs,
+    this.lat,
+    this.lng,
+    this.load,
+    this.feature,
+    this.type,
+    this.visitNumber,
+    this.originCode,
+    this.destinationCode,
+  });
 
-    NextBus3({
-this.destinationCode,
-this.estimatedArrival,
-this.feature,
-this.latitude,
-this.load,
-this.longitude,
-this.originCode,
-this.type,
-this.visitNumber,
-    });
+  factory Next2.fromJson(Map<String, dynamic> json) => Next2(
+        time: asT<String?>(json['time']),
+        durationMs: asT<int?>(json['duration_ms']),
+        lat: asT<int?>(json['lat']),
+        lng: asT<int?>(json['lng']),
+        load: asT<String?>(json['load']),
+        feature: asT<String?>(json['feature']),
+        type: asT<String?>(json['type']),
+        visitNumber: asT<int?>(json['visit_number']),
+        originCode: asT<String?>(json['origin_code']),
+        destinationCode: asT<String?>(json['destination_code']),
+      );
 
-  factory NextBus3.fromJson(Map<String, dynamic> jsonRes)=>NextBus3(
-    destinationCode : asT<String?>(jsonRes['DestinationCode']),
-    estimatedArrival : asT<String?>(jsonRes['EstimatedArrival']),
-    feature : asT<String?>(jsonRes['Feature']),
-    latitude : asT<String?>(jsonRes['Latitude']),
-    load : asT<String?>(jsonRes['Load']),
-    longitude : asT<String?>(jsonRes['Longitude']),
-    originCode : asT<String?>(jsonRes['OriginCode']),
-    type : asT<String?>(jsonRes['Type']),
-    visitNumber : asT<String?>(jsonRes['VisitNumber']),);
+  String? time;
+  int? durationMs;
+  int? lat;
+  int? lng;
+  String? load;
+  String? feature;
+  String? type;
+  int? visitNumber;
+  String? originCode;
+  String? destinationCode;
 
-  final String? destinationCode;
-  final String? estimatedArrival;
-  final String? feature;
-  final String? latitude;
-  final String? load;
-  final String? longitude;
-  final String? originCode;
-  final String? type;
-  final String? visitNumber;
-
-
-  //to change the encodings
-@override
-String  toString() {
+  @override
+  String toString() {
     return jsonEncode(this);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'DestinationCode': destinationCode,
-        'EstimatedArrival': estimatedArrival,
-        'Feature': feature,
-        'Latitude': latitude,
-        'Load': load,
-        'Longitude': longitude,
-        'OriginCode': originCode,
-        'Type': type,
-        'VisitNumber': visitNumber,
-};
-
-NextBus3 clone() => NextBus3.fromJson(asT<Map<String, dynamic>>(jsonDecode(jsonEncode(this)))!);
-
+        'time': time,
+        'duration_ms': durationMs,
+        'lat': lat,
+        'lng': lng,
+        'load': load,
+        'feature': feature,
+        'type': type,
+        'visit_number': visitNumber,
+        'origin_code': originCode,
+        'destination_code': destinationCode,
+      };
 }

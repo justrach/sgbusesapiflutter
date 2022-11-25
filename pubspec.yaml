@@ -1,6 +1,6 @@
 name: sg_bus_api
 description: An unofficial Flutter plugin that links the LTA BusAPI to any Flutter application
-version: 0.0.1
+version: 0.0.2
 homepage: https://rach.codes/publicprojects
 
 environment:
@@ -8,9 +8,9 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  dio: ^4.0.4
   flutter:
     sdk: flutter
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
